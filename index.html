@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISTINO PREZZI CANNABIS LIGHT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+ 
+</head>
+<body>
+    <div id="youtube-player"></div>
+    <div class="overlay"></div>
+    <div id="shop-name">NOME NEGOZIO    <div class="buttons">
+        <button class="btn" onclick="exportConfig()">ESPORTA</button>
+        <button class="btn" onclick="importConfig()">IMPORTA</button>
+        <button class="btn" onclick="setShopName()">IMPOSTA NOME</button>
+    </div></div>
+ 
+    <div id="container" class="container">
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const defaultData = {
+            "GLASS HOUSE": [
+                { "name": "SKUNK RAGE", "1g": "8€", "2g": "15€", "5g": "25€" },
+                { "name": "BLACK POISON (OFFERTA)", "1g": "8€", "2g": "15€", "5g": "20€" },
+                { "name": "CANDY HAZE (OFFERTA)", "1g": "8€", "2g": "15€", "5g": "20€" }
+            ],
+            "INDOOR": [
+                { "name": "AMNESIA", "1g": "20€", "2g": "15€", "5g": "20€" },
+                { "name": "OG KUSH", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "CARAMEL MUFFIN COOKIES", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "TYSON HAZE", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "CANASTER (OFFERTA)", "1g": "10€", "2g": "15€", "5g": "-" }
+            ],
+            "IDROPONICA": [
+                { "name": "SUNSHINE (OFFERTA)", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "HAILA", "1g": "12€", "2g": "20€", "5g": "30€" },
+                { "name": "ANDY PUNCH", "1g": "12€", "2g": "20€", "5g": "36€" }
+            ],
+            "TRINCIATO": [
+                { "name": "HASHISH", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "SUPER POLLEN", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "CANAPA", "1g": "10€", "2g": "15€", "5g": "20€" },
+                { "name": "SUPER CLEAN 30%", "1g": "12€", "2g": "20€", "5g": "36€" },
+                { "name": "CRUMBLE (LEMON PIE 96%)", "1g": "15€", "2g": "20€", "5g": "40€" }
+            ]
+        };
+
+        function renderCategories(data) {
+            const container = document.getElementById('container');
+            container.innerHTML = '';
+
+            for (const [category, products] of Object.entries(data)) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                
+                const header = document.createElement('div');
+                header.className = 'category-header glow-text';
+                header.textContent = category;
+                categoryDiv.appendChild(header);
+
+                const table = document.createElement('table');
+                const headerRow = table.insertRow();
+                ['PRODOTTO', '1G', '2G', '5G'].forEach(text => {
+                    const th = document.createElement('th');
+                    th.textContent = text;
+                    headerRow.appendChild(th);
+                });
+
+                products.forEach(product => {
+                    const row = table.insertRow();
+                    ['name', '1g', '2g', '5g'].forEach(key => {
+                        const cell = row.insertCell();
+                        cell.textContent = product[key];
+                    });
+                });
+
+                categoryDiv.appendChild(table);
+                container.appendChild(categoryDiv);
+            }
+        }
+
+        function saveToLocalStorage(data) {
+            localStorage.setItem('cannabisConfig', JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('cannabisConfig');
+            return saved ? JSON.parse(saved) : defaultData;
+        }
+
+        function exportConfig() {
+            const data = loadFromLocalStorage();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "cannabis_config.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function importConfig() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const config = JSON.parse(e.target.result);
+                    saveToLocalStorage(config);
+                    renderCategories(config);
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function setShopName() {
+            const name = prompt("Inserisci il nome del negozio:");
+            if (name) {
+                localStorage.setItem('shopName', name);
+                document.getElementById('shop-name').textContent = name;
+            }
+        }
+
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                videoId: 'Bewj2fmImvc',
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    controls: 0,
+                    showinfo: 0,
+                    autohide: 1,
+                    modestbranding: 1,
+                    vq: 'hd1080',
+                    playlist: 'Bewj2fmImvc'
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.mute();
+            event.target.playVideo();
+        }
+
+        const initialData = loadFromLocalStorage();
+        renderCategories(initialData);
+
+        const shopName = localStorage.getItem('shopName') || "NOME NEGOZIO";
+        document.getElementById('shop-name').textContent = shopName;
+    </script>
+</body>
+</html>
