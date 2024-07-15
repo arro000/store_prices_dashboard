@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISTINO PREZZI CANNABIS LIGHT</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script  src="script.js"></script> 
+    <script>
+        // Aggiungi un parametro casuale a tutti i link CSS e script
+        document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el => {
+            el.href = el.src = (el.href || el.src) + '?v=' + Math.random();
+        });
+    </script>
+    
+</head>
+<body>
+    <div id="youtube-player"></div>
+    <div class="overlay"></div>
+    <div class="store-name-container">
+        <h1 id="shop-name"></h1>
+    </div>
+    <div class="container-wrapper">
+        <div id="container" class="container">
+            <!-- Le categorie e i prodotti verranno inseriti qui dinamicamente da JavaScript -->
+        </div>
+    </div>
+</body>
+</html>
