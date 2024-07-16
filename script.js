@@ -76,7 +76,7 @@ const shopData = {
       },
       { name: "HULK", "1g": "12€", "2g": "20€", "5g": "36€", offerta: false },
       {
-        name: "ANDY PUNCH",
+        name: "CANDY PUNCH",
         "1g": "12€",
         "2g": "20€",
         "5g": "36€",
