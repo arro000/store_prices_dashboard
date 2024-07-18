@@ -5,7 +5,7 @@ const config = {
   videoQuality: "hd720",
 };
 const shopData = {
-  "GLASS HOUSE": {
+  "🏡 GLASS HOUSE": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
       {
@@ -31,7 +31,7 @@ const shopData = {
       },
     ],
   },
-  INDOOR: {
+  "🌿 INDOOR": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
       {
@@ -64,7 +64,7 @@ const shopData = {
       },
     ],
   },
-  IDROPONICA: {
+  "💧 IDROPONICA": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
       {
@@ -84,7 +84,7 @@ const shopData = {
       },
     ],
   },
-  HASHISH: {
+  "🍫 HASHISH": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
       {
@@ -111,14 +111,26 @@ const shopData = {
       },
     ],
   },
-  TRINCIATO: {
+  "🥦 TRINCIATO": {
     headers: ["PRODOTTO", "10G", "20G", "50G"],
     products: [
       {
         name: "TRINCIATO CLASSICO",
-        "10g": "10€",
         "20g": "20€",
+        "30g": "30€",
         "50g": "50€",
+        offerta: false,
+      },
+    ],
+  },
+  "🌳": {
+    headers: ["PRODOTTO", "5G", "10G", "20G"],
+    products: [
+      {
+        name: "SMALL BUDS",
+        "5g": "15€",
+        "10g": "27.5€",
+        "20g": "50€",
         offerta: false,
       },
     ],
