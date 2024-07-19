@@ -112,7 +112,7 @@ const shopData = {
     ],
   },
   "🥦 TRINCIATO": {
-    headers: ["PRODOTTO", "10G", "20G", "50G"],
+    headers: ["PRODOTTO", "20G", "30G", "50G"],
     products: [
       {
         name: "TRINCIATO CLASSICO",
