@@ -94,7 +94,7 @@ const shopData = {
         "5g": "30€",
         offerta: false,
       },
-      { name: "CHARAS", "1g": "10€", "2g": "15€", "5g": "30€", offerta: false },
+      { name: "CHARAS", "1g": "10€", "2g": "17.5€", "5g": "33€", offerta: false },
       {
         name: "SUPER CREME 30%",
         "1g": "12€",
