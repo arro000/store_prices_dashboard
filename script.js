@@ -123,7 +123,7 @@ const shopData = {
       },
     ],
   },
-  "🌳": {
+  /*"🌳": {
     headers: ["PRODOTTO", "5G", "10G", "20G"],
     products: [
       {
@@ -134,7 +134,7 @@ const shopData = {
         offerta: false,
       },
     ],
-  },
+  },*/
 };
 
 // script.js
