@@ -15,13 +15,13 @@ const shopData = {
         "5g": "25€",
         offerta: false,
       },
-      {
+    /*  {
         name: "BLACK POISON",
         "1g": "5€",
         "2g": "10€",
         "5g": "20€",
         offerta: true,
-      },
+      },*/
       {
         name: "LEMON HAZE",
         "1g": "5€",
