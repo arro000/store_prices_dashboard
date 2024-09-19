@@ -69,10 +69,10 @@ const shopData = {
     products: [
       {
         name: "SUNSHINE",
-        "1g": "10€",
-        "2g": "17.5€",
-        "5g": "30€",
-        offerta: true,
+        "1g": "12€",
+        "2g": "20€",
+        "5g": "36€",
+        offerta: false,
       },
       { name: "HULK", "1g": "12€", "2g": "20€", "5g": "36€", offerta: false },
       {
