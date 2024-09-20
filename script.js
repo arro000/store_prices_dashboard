@@ -73,7 +73,7 @@ const shopData = {
         name: "WHITE WIDOW",
         "1g": "10€",
         "2g": "17€",
-        "5g": "23€",
+        "5g": "30€",
         offerta: false,
       },
     ],
