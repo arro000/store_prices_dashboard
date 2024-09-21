@@ -82,7 +82,7 @@ const shopData = {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
       {
-        name: "SUNSHINE",
+        name: "AK47",
         "1g": "12€",
         "2g": "20€",
         "5g": "36€",
