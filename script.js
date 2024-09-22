@@ -705,3 +705,26 @@ function updateCategory(oldCategoryName, newCategoryName, headers) {
   saveShopData();
   renderCategories(shopData);
 }
+function addProduct(category, productData) {
+  shopData[category].products.push(productData);
+  saveShopData();
+  renderCategories(shopData);
+}
+
+function updateProduct(category, productName, updatedData) {
+  const productIndex = shopData[category].products.findIndex(p => p.name === productName);
+  if (productIndex !== -1) {
+    shopData[category].products[productIndex] = { ...shopData[category].products[productIndex], ...updatedData };
+    saveShopData();
+    renderCategories(shopData);
+  }
+}
+
+function removeProduct(category, productName) {
+  const productIndex = shopData[category].products.findIndex(p => p.name === productName);
+  if (productIndex !== -1) {
+    shopData[category].products.splice(productIndex, 1);
+    saveShopData();
+    renderCategories(shopData);
+  }
+}
