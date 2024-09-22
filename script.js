@@ -7,125 +7,24 @@ const config = {
 const defaultShopData = {
   "GLASS HOUSE": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: [
-      {
-        name: "SKUNK FACE",
-        "1g": "8",
-        "2g": "15",
-        "5g": "25",
-        offerta: false,
-        new: false,
-      },
-      {
-        name: "BLACK POISON",
-        "1g": "5",
-        "2g": "10",
-        "5g": "20",
-        offerta: true,
-        new: false,
-      },
-      {
-        name: "LEMON HAZE",
-        "1g": "5",
-        "2g": "10",
-        "5g": "20",
-        offerta: true,
-        new: true,
-      },
-    ],
+    products: []
   },
   INDOOR: {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: [
-      {
-        name: "AMNESIA",
-        "1g": "10",
-        "2g": "15",
-        "5g": "28",
-        offerta: false,
-      },
-      {
-        name: "OG KUSH",
-        "1g": "10",
-        "2g": "15",
-        "5g": "28",
-        offerta: false,
-      },
-      {
-        name: "CARAMEL COOKIES",
-        "1g": "10",
-        "2g": "15",
-        "5g": "28",
-        offerta: false,
-      },
-      {
-        name: "TYSON HAZE",
-        "1g": "10",
-        "2g": "15",
-        "5g": "28",
-        offerta: false,
-      },
-    ],
+    products: []
   },
   IDROPONICA: {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: [
-      {
-        name: "SUNSHINE",
-        "1g": "10",
-        "2g": "17.5",
-        "5g": "30",
-        offerta: true,
-      },
-      { name: "HULK", "1g": "12", "2g": "20", "5g": "36", offerta: false },
-      {
-        name: "ANDY PUNCH",
-        "1g": "12",
-        "2g": "20",
-        "5g": "36",
-        offerta: false,
-      },
-    ],
+    products: []
   },
   HASHISH: {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: [
-      {
-        name: "SUPER POLLEN",
-        "1g": "10",
-        "2g": "15",
-        "5g": "30",
-        offerta: false,
-      },
-      { name: "CHARAS", "1g": "10", "2g": "15", "5g": "30", offerta: false },
-      {
-        name: "SUPER CREME 30%",
-        "1g": "12",
-        "2g": "20",
-        "5g": "36",
-        offerta: false,
-      },
-      {
-        name: "CRUMBLE (LEMON PIE 96%)",
-        "1g": "15",
-        "2g": "23",
-        "5g": "40",
-        offerta: false,
-      },
-    ],
+    products: []
   },
   TRINCIATO: {
     headers: ["PRODOTTO", "10G", "20G", "50G"],
-    products: [
-      {
-        name: "TRINCIATO CLASSICO",
-        "10g": "10",
-        "20g": "20",
-        "50g": "50",
-        offerta: false,
-      },
-    ],
-  },
+    products: []
+  }
 };
 
 let shopData = JSON.parse(localStorage.getItem("shopData")) || defaultShopData;
@@ -232,10 +131,21 @@ function renderCategories(data) {
     const categoryDiv = document.createElement("div");
     categoryDiv.className = "category";
 
+    const headerContainer = document.createElement("div");
+    headerContainer.className = "category-header-container";
+
     const header = document.createElement("div");
     header.className = "category-header glow-text";
     header.textContent = category;
-    categoryDiv.appendChild(header);
+
+    const deleteIcon = document.createElement("span");
+    deleteIcon.className = "delete-category-icon";
+    deleteIcon.innerHTML = "🗑️";
+    deleteIcon.onclick = () => removeCategory(category);
+
+    headerContainer.appendChild(header);
+    headerContainer.appendChild(deleteIcon);
+    categoryDiv.appendChild(headerContainer);
 
     const grid = document.createElement("div");
     grid.className = "product-grid";

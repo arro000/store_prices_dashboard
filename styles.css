@@ -252,8 +252,54 @@ body {
   max-width: 500px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.9);
-
   color: var(--text-color);
+}
+
+#categoryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#categoryForm input,
+#categoryForm select,
+#categoryForm button {
+  padding: 10px;
+  font-family: "Orbitron", sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+}
+
+#categoryForm button {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+#categoryForm button:hover {
+  background-color: var(--text-color);
+  color: var(--secondary-color);
+}
+
+.category-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.delete-category-icon {
+  cursor: pointer;
+  font-size: 1.2em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-header-container:hover .delete-category-icon {
+  opacity: 1;
 }
 
 .close {
