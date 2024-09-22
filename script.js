@@ -308,7 +308,8 @@ function editCategory(category) {
     if (actionElement) actionElement.value = "update";
     if (categoryNameElement) categoryNameElement.value = category;
     if (oldCategoryNameElement) oldCategoryNameElement.value = category;
-    if (categoryHeadersElement) categoryHeadersElement.value = categoryData.headers.join(", ");
+    if (categoryHeadersElement)
+      categoryHeadersElement.value = categoryData.headers.join(", ");
     if (categoryModalElement) categoryModalElement.style.display = "block";
   }
 }
@@ -473,8 +474,8 @@ function setupModal() {
         new: document.getElementById("new").checked,
       };
 
-      const headers = shopData[category].headers.slice(1);  // Exclude "PRODOTTO"
-      headers.forEach(header => {
+      const headers = shopData[category].headers.slice(1); // Exclude "PRODOTTO"
+      headers.forEach((header) => {
         const inputId = `price${header.toLowerCase()}`;
         const input = document.getElementById(inputId);
         if (input) {
@@ -532,8 +533,8 @@ function updateProductForm(category) {
   const productDetails = document.getElementById("productDetails");
   productDetails.innerHTML = "";
 
-  const headers = shopData[category].headers.slice(1);  // Exclude "PRODOTTO"
-  headers.forEach(header => {
+  const headers = shopData[category].headers.slice(1); // Exclude "PRODOTTO"
+  headers.forEach((header) => {
     const input = document.createElement("input");
     input.type = "text";
     input.id = `price${header.toLowerCase()}`;
@@ -551,7 +552,7 @@ function updateProductForm(category) {
 }
 
 // Add this to your existing event listeners
-document.getElementById("category").addEventListener("change", function() {
+document.getElementById("category").addEventListener("change", function () {
   updateProductForm(this.value);
 });
 
