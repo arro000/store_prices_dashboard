@@ -10,24 +10,24 @@ const defaultShopData = {
     products: [
       {
         name: "SKUNK FACE",
-        "1g": "8€",
-        "2g": "15€",
-        "5g": "25€",
+        "1g": "8",
+        "2g": "15",
+        "5g": "25",
         offerta: false,
       },
       {
         name: "PINK PANTHER",
-        "1g": "5€",
-        "2g": "10€",
-        "5g": "20€",
+        "1g": "5",
+        "2g": "10",
+        "5g": "20",
         new: true,
         offerta: false,
       },
       {
         name: "LEMON HAZE",
-        "1g": "5€",
-        "2g": "10€",
-        "5g": "20€",
+        "1g": "5",
+        "2g": "10",
+        "5g": "20",
         offerta: true,
       },
     ],
@@ -37,45 +37,45 @@ const defaultShopData = {
     products: [
       {
         name: "AMNESIA",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "OG KUSH",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "CARAMEL COOKIES",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "HONEY CHEESE",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         new: true,
         offerta: false,
       },
       {
         name: "TYSON HAZE",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "STRAWBERRY",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
     ],
@@ -85,25 +85,25 @@ const defaultShopData = {
     products: [
       {
         name: "WHITE WIDOW",
-        "1g": "10€",
-        "2g": "17€",
-        "5g": "30€",
+        "1g": "10",
+        "2g": "17",
+        "5g": "30",
         new: true,
         offerta: true,
       },
       {
         name: "AK47",
-        "1g": "12€",
-        "2g": "20€",
-        "5g": "36€",
+        "1g": "12",
+        "2g": "20",
+        "5g": "36",
         offerta: false,
       },
-      { name: "HULK", "1g": "12€", "2g": "20€", "5g": "36€", offerta: false },
+      { name: "HULK", "1g": "12", "2g": "20", "5g": "36", offerta: false },
       {
         name: "CANDY PUNCH",
-        "1g": "12€",
-        "2g": "20€",
-        "5g": "36€",
+        "1g": "12",
+        "2g": "20",
+        "5g": "36",
         offerta: false,
       },
     ],
@@ -113,30 +113,30 @@ const defaultShopData = {
     products: [
       {
         name: "SUPER POLLEN",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "30€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "30",
         offerta: false,
       },
       {
         name: "CHARAS",
-        "1g": "10€",
-        "2g": "17.5€",
-        "5g": "33€",
+        "1g": "10",
+        "2g": "17.5",
+        "5g": "33",
         offerta: false,
       },
       {
         name: "SUPER CREME 30%",
-        "1g": "12€",
-        "2g": "20€",
-        "5g": "36€",
+        "1g": "12",
+        "2g": "20",
+        "5g": "36",
         offerta: false,
       },
       {
         name: "CRUMBLE (LEMON PIE 96%)",
-        "1g": "15€",
-        "2g": "23€",
-        "5g": "40€",
+        "1g": "15",
+        "2g": "23",
+        "5g": "40",
         offerta: false,
       },
     ],
@@ -146,9 +146,9 @@ const defaultShopData = {
     products: [
       {
         name: "TRINCIATO CLASSICO",
-        "20g": "20€",
-        "30g": "30€",
-        "50g": "50€",
+        "20g": "20",
+        "30g": "30",
+        "50g": "50",
         offerta: false,
       },
     ],
@@ -158,9 +158,9 @@ const defaultShopData = {
     products: [
       {
         name: "SMALL BUDS",
-        "5g": "15€",
-        "10g": "27.5€",
-        "20g": "50€",
+        "5g": "15",
+        "10g": "27.5",
+        "20g": "50",
         offerta: false,
       },
     ],
@@ -185,13 +185,8 @@ function renderCategories(data) {
     header.className = "category-header glow-text";
     header.textContent = category;
 
-    const deleteIcon = document.createElement("span");
-    deleteIcon.className = "delete-category-icon";
-    deleteIcon.innerHTML = "🗑️";
-    deleteIcon.onclick = () => removeCategory(category);
-
     headerContainer.appendChild(header);
-    headerContainer.appendChild(deleteIcon);
+
     categoryDiv.appendChild(headerContainer);
 
     const grid = document.createElement("div");
@@ -392,7 +387,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("exportBtn").addEventListener("click", exportConfig);
   document.getElementById("importBtn").addEventListener("click", importConfig);
   document.getElementById("resetBtn").addEventListener("click", resetToDefault);
-  document.getElementById("clearLocalStorageBtn").addEventListener("click", clearLocalStorage);
+  document
+    .getElementById("clearLocalStorageBtn")
+    .addEventListener("click", clearLocalStorage);
 });
 
 function setupModal() {
@@ -541,7 +538,11 @@ function importConfig() {
 }
 
 function resetToDefault() {
-  if (confirm("Sei sicuro di voler ripristinare la configurazione predefinita? Tutti i dati personalizzati saranno persi.")) {
+  if (
+    confirm(
+      "Sei sicuro di voler ripristinare la configurazione predefinita? Tutti i dati personalizzati saranno persi."
+    )
+  ) {
     localStorage.removeItem("shopData");
     shopData = JSON.parse(JSON.stringify(defaultShopData));
     renderCategories(shopData);
@@ -550,11 +551,17 @@ function resetToDefault() {
 }
 
 function clearLocalStorage() {
-  if (confirm("Sei sicuro di voler eliminare tutti i dati locali? Questa azione non può essere annullata.")) {
+  if (
+    confirm(
+      "Sei sicuro di voler eliminare tutti i dati locali? Questa azione non può essere annullata."
+    )
+  ) {
     localStorage.clear();
     shopData = JSON.parse(JSON.stringify(defaultShopData));
     renderCategories(shopData);
-    alert("Dati locali eliminati con successo. L'applicazione sta utilizzando la configurazione predefinita.");
+    alert(
+      "Dati locali eliminati con successo. L'applicazione sta utilizzando la configurazione predefinita."
+    );
   }
 }
 
