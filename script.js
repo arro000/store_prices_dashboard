@@ -215,7 +215,7 @@ function renderCategories(data) {
       const row = document.createElement("div");
       row.className = "grid-row";
 
-      headers.forEach((key) => {
+      headers.forEach((key, index) => {
         const cell = document.createElement("div");
         cell.className = "grid-cell";
 
@@ -241,29 +241,33 @@ function renderCategories(data) {
 
           cell.appendChild(productNameContainer);
         } else {
-          cell.textContent = product[key.toLowerCase()] || "-";
+          const priceSpan = document.createElement("span");
+          priceSpan.className = "price";
+          priceSpan.textContent = product[key.toLowerCase()] || "-";
+          cell.appendChild(priceSpan);
+
+          if (index === headers.length - 1) {
+            const actionsContainer = document.createElement("div");
+            actionsContainer.className = "actions-container";
+
+            const editButton = document.createElement("button");
+            editButton.textContent = "Modifica";
+            editButton.className = "edit-button";
+            editButton.onclick = () => editProduct(category, product.name);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Elimina";
+            deleteButton.className = "delete-button";
+            deleteButton.onclick = () => deleteProduct(category, product.name);
+
+            actionsContainer.appendChild(editButton);
+            actionsContainer.appendChild(deleteButton);
+            cell.appendChild(actionsContainer);
+          }
         }
 
         row.appendChild(cell);
       });
-
-      // Aggiungi i bottoni per la modifica e l'eliminazione
-      const actionsCell = document.createElement("div");
-      actionsCell.className = "grid-cell actions-cell";
-
-      const editButton = document.createElement("button");
-      editButton.textContent = "Modifica";
-      editButton.className = "edit-button";
-      editButton.onclick = () => editProduct(category, product.name);
-
-      const deleteButton = document.createElement("button");
-      deleteButton.textContent = "Elimina";
-      deleteButton.className = "delete-button";
-      deleteButton.onclick = () => deleteProduct(category, product.name);
-
-      actionsCell.appendChild(editButton);
-      actionsCell.appendChild(deleteButton);
-      row.appendChild(actionsCell);
 
       grid.appendChild(row);
     });

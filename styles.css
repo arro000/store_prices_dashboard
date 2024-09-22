@@ -308,13 +308,17 @@ body {
   animation: pulse 1s infinite;
 }
 
-.actions-cell {
+.actions-container {
   display: none;
   justify-content: space-around;
   align-items: center;
 }
 
-.grid-row:hover .actions-cell {
+.grid-row:hover .price {
+  display: none;
+}
+
+.grid-row:hover .actions-container {
   display: flex;
 }
 
@@ -340,4 +344,20 @@ body {
 
 .edit-button:hover, .delete-button:hover {
   transform: scale(1.1);
+}
+
+.grid-cell {
+  position: relative;
+}
+
+.actions-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
