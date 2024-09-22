@@ -307,3 +307,37 @@ body {
   background-repeat: no-repeat;
   animation: pulse 1s infinite;
 }
+
+.actions-cell {
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.grid-row:hover .actions-cell {
+  display: flex;
+}
+
+.edit-button, .delete-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.edit-button {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.delete-button {
+  background-color: #ff4136;
+  color: var(--text-color);
+}
+
+.edit-button:hover, .delete-button:hover {
+  transform: scale(1.1);
+}

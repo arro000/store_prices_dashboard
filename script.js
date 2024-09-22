@@ -247,11 +247,50 @@ function renderCategories(data) {
         row.appendChild(cell);
       });
 
+      // Aggiungi i bottoni per la modifica e l'eliminazione
+      const actionsCell = document.createElement("div");
+      actionsCell.className = "grid-cell actions-cell";
+
+      const editButton = document.createElement("button");
+      editButton.textContent = "Modifica";
+      editButton.className = "edit-button";
+      editButton.onclick = () => editProduct(category, product.name);
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Elimina";
+      deleteButton.className = "delete-button";
+      deleteButton.onclick = () => deleteProduct(category, product.name);
+
+      actionsCell.appendChild(editButton);
+      actionsCell.appendChild(deleteButton);
+      row.appendChild(actionsCell);
+
       grid.appendChild(row);
     });
 
     categoryDiv.appendChild(grid);
     container.appendChild(categoryDiv);
+  }
+}
+
+function editProduct(category, productName) {
+  const product = shopData[category].products.find(p => p.name === productName);
+  if (product) {
+    document.getElementById("action").value = "update";
+    document.getElementById("category").value = category;
+    document.getElementById("productName").value = productName;
+    document.getElementById("price1g").value = product["1g"].replace("€", "");
+    document.getElementById("price2g").value = product["2g"].replace("€", "");
+    document.getElementById("price5g").value = product["5g"].replace("€", "");
+    document.getElementById("offerta").checked = product.offerta;
+    document.getElementById("new").checked = product.new;
+    document.getElementById("productModal").style.display = "block";
+  }
+}
+
+function deleteProduct(category, productName) {
+  if (confirm(`Sei sicuro di voler eliminare ${productName} dalla categoria ${category}?`)) {
+    removeProduct(category, productName);
   }
 }
 
