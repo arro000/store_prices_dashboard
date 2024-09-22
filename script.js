@@ -696,3 +696,12 @@ document.querySelectorAll(".category").forEach((el, index) => {
 
 // Esporta la funzione per l'API di YouTube
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+function updateCategory(oldCategoryName, newCategoryName, headers) {
+  if (oldCategoryName !== newCategoryName) {
+    shopData[newCategoryName] = shopData[oldCategoryName];
+    delete shopData[oldCategoryName];
+  }
+  shopData[newCategoryName].headers = headers;
+  saveShopData();
+  renderCategories(shopData);
+}
