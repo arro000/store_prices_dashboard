@@ -14,6 +14,7 @@ const shopData = {
         "2g": "15€",
         "5g": "25€",
         offerta: false,
+        new: false,
       },
       {
         name: "BLACK POISON",
@@ -21,6 +22,7 @@ const shopData = {
         "2g": "10€",
         "5g": "20€",
         offerta: true,
+        new: false,
       },
       {
         name: "LEMON HAZE",
@@ -28,6 +30,7 @@ const shopData = {
         "2g": "10€",
         "5g": "20€",
         offerta: true,
+        new: true,
       },
     ],
   },
@@ -184,6 +187,12 @@ function renderCategories(data) {
             const saleIcon = document.createElement("span");
             saleIcon.className = "sale-icon";
             productNameContainer.appendChild(saleIcon);
+          }
+
+          if (product.new) {
+            const newIcon = document.createElement("span");
+            newIcon.className = "new-icon";
+            productNameContainer.appendChild(newIcon);
           }
 
           const nameSpan = document.createElement("span");
