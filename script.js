@@ -7,118 +7,165 @@ const config = {
 const defaultShopData = {
   "GLASS HOUSE": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: []
+    products: [
+      {
+        name: "SKUNK FACE",
+        "1g": "8€",
+        "2g": "15€",
+        "5g": "25€",
+        offerta: false,
+      },
+      {
+        name: "PINK PANTHER",
+        "1g": "5€",
+        "2g": "10€",
+        "5g": "20€",
+        new: true,
+        offerta: false,
+      },
+      {
+        name: "LEMON HAZE",
+        "1g": "5€",
+        "2g": "10€",
+        "5g": "20€",
+        offerta: true,
+      },
+    ],
   },
-  INDOOR: {
+  "🌿 INDOOR": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: []
+    products: [
+      {
+        name: "AMNESIA",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "28€",
+        offerta: false,
+      },
+      {
+        name: "OG KUSH",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "28€",
+        offerta: false,
+      },
+      {
+        name: "CARAMEL COOKIES",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "28€",
+        offerta: false,
+      },
+      {
+        name: "HONEY CHEESE",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "28€",
+        new: true,
+        offerta: false,
+      },
+      {
+        name: "TYSON HAZE",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "28€",
+        offerta: false,
+      },
+      {
+        name: "STRAWBERRY",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "28€",
+        offerta: false,
+      },
+    ],
   },
-  IDROPONICA: {
+  "💧 IDROPONICA": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: []
+    products: [
+      {
+        name: "WHITE WIDOW",
+        "1g": "10€",
+        "2g": "17€",
+        "5g": "30€",
+        new: true,
+        offerta: true,
+      },
+      {
+        name: "AK47",
+        "1g": "12€",
+        "2g": "20€",
+        "5g": "36€",
+        offerta: false,
+      },
+      { name: "HULK", "1g": "12€", "2g": "20€", "5g": "36€", offerta: false },
+      {
+        name: "CANDY PUNCH",
+        "1g": "12€",
+        "2g": "20€",
+        "5g": "36€",
+        offerta: false,
+      },
+    ],
   },
-  HASHISH: {
+  "🍫 HASHISH": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
-    products: []
+    products: [
+      {
+        name: "SUPER POLLEN",
+        "1g": "10€",
+        "2g": "15€",
+        "5g": "30€",
+        offerta: false,
+      },
+      {
+        name: "CHARAS",
+        "1g": "10€",
+        "2g": "17.5€",
+        "5g": "33€",
+        offerta: false,
+      },
+      {
+        name: "SUPER CREME 30%",
+        "1g": "12€",
+        "2g": "20€",
+        "5g": "36€",
+        offerta: false,
+      },
+      {
+        name: "CRUMBLE (LEMON PIE 96%)",
+        "1g": "15€",
+        "2g": "23€",
+        "5g": "40€",
+        offerta: false,
+      },
+    ],
   },
-  TRINCIATO: {
-    headers: ["PRODOTTO", "10G", "20G", "50G"],
-    products: []
-  }
+  "🥦 TRINCIATO": {
+    headers: ["PRODOTTO", "20G", "30G", "50G"],
+    products: [
+      {
+        name: "TRINCIATO CLASSICO",
+        "20g": "20€",
+        "30g": "30€",
+        "50g": "50€",
+        offerta: false,
+      },
+    ],
+  },
+  /*"🌳": {
+    headers: ["PRODOTTO", "5G", "10G", "20G"],
+    products: [
+      {
+        name: "SMALL BUDS",
+        "5g": "15€",
+        "10g": "27.5€",
+        "20g": "50€",
+        offerta: false,
+      },
+    ],
+  },*/
 };
-
-let shopData = JSON.parse(localStorage.getItem("shopData")) || defaultShopData;
-
-function saveShopData() {
-  localStorage.setItem("shopData", JSON.stringify(shopData));
-}
-
-// Funzione per aggiungere una nuova categoria
-function addCategory(categoryName, headers) {
-  if (!shopData[categoryName]) {
-    shopData[categoryName] = {
-      headers: headers,
-      products: []
-    };
-    saveShopData();
-    renderCategories(shopData);
-  } else {
-    console.error("Categoria già esistente:", categoryName);
-  }
-}
-
-// Funzione per rimuovere una categoria
-function removeCategory(categoryName) {
-  if (shopData[categoryName]) {
-    delete shopData[categoryName];
-    saveShopData();
-    renderCategories(shopData);
-  } else {
-    console.error("Categoria non trovata:", categoryName);
-  }
-}
-
-// Funzione per aggiornare una categoria
-function updateCategory(oldCategoryName, newCategoryName, newHeaders) {
-  if (shopData[oldCategoryName]) {
-    if (oldCategoryName !== newCategoryName) {
-      shopData[newCategoryName] = shopData[oldCategoryName];
-      delete shopData[oldCategoryName];
-    }
-    shopData[newCategoryName].headers = newHeaders;
-    saveShopData();
-    renderCategories(shopData);
-  } else {
-    console.error("Categoria non trovata:", oldCategoryName);
-  }
-}
-
-// Funzione per aggiungere un nuovo prodotto
-function addProduct(category, product) {
-  if (shopData[category]) {
-    shopData[category].products.push(product);
-    saveShopData();
-    renderCategories(shopData);
-  } else {
-    console.error("Categoria non trovata:", category);
-  }
-}
-
-// Funzione per rimuovere un prodotto
-function removeProduct(category, productName) {
-  if (shopData[category]) {
-    const index = shopData[category].products.findIndex(
-      (p) => p.name === productName
-    );
-    if (index !== -1) {
-      shopData[category].products.splice(index, 1);
-      saveShopData();
-      renderCategories(shopData);
-    } else {
-      console.error("Prodotto non trovato:", productName);
-    }
-  } else {
-    console.error("Categoria non trovata:", category);
-  }
-}
-
-// Funzione per aggiornare le proprietà di un prodotto
-function updateProduct(category, productName, updatedProperties) {
-  if (shopData[category]) {
-    const product = shopData[category].products.find(
-      (p) => p.name === productName
-    );
-    if (product) {
-      Object.assign(product, updatedProperties);
-      saveShopData();
-      renderCategories(shopData);
-    } else {
-      console.error("Prodotto non trovato:", productName);
-    }
-  } else {
-    console.error("Categoria non trovata:", category);
-  }
-}
 
 // script.js
 function renderCategories(data) {
@@ -344,6 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("exportBtn").addEventListener("click", exportConfig);
   document.getElementById("importBtn").addEventListener("click", importConfig);
+  document.getElementById("resetBtn").addEventListener("click", resetToDefault);
 });
 
 function setupModal() {
@@ -361,12 +409,12 @@ function setupModal() {
 
   productBtn.onclick = () => (modal.style.display = "block");
   categoryBtn.onclick = () => (categoryModal.style.display = "block");
-  
-  Array.from(spans).forEach(span => {
+
+  Array.from(spans).forEach((span) => {
     span.onclick = () => {
       modal.style.display = "none";
       categoryModal.style.display = "none";
-    }
+    };
   });
 
   window.onclick = (event) => {
@@ -375,11 +423,13 @@ function setupModal() {
   };
 
   productAction.onchange = () => {
-    productDetails.style.display = productAction.value === "remove" ? "none" : "flex";
+    productDetails.style.display =
+      productAction.value === "remove" ? "none" : "flex";
   };
 
   categoryAction.onchange = () => {
-    categoryDetails.style.display = categoryAction.value === "remove" ? "none" : "flex";
+    categoryDetails.style.display =
+      categoryAction.value === "remove" ? "none" : "flex";
   };
 
   productForm.onsubmit = (e) => {
@@ -428,7 +478,10 @@ function setupModal() {
   categoryForm.onsubmit = (e) => {
     e.preventDefault();
     const categoryName = document.getElementById("categoryName").value;
-    const headers = document.getElementById("categoryHeaders").value.split(',').map(h => h.trim());
+    const headers = document
+      .getElementById("categoryHeaders")
+      .value.split(",")
+      .map((h) => h.trim());
 
     switch (categoryAction.value) {
       case "add":
@@ -438,7 +491,8 @@ function setupModal() {
         removeCategory(categoryName);
         break;
       case "update":
-        const oldCategoryName = document.getElementById("oldCategoryName").value;
+        const oldCategoryName =
+          document.getElementById("oldCategoryName").value;
         updateCategory(oldCategoryName, categoryName, headers);
         break;
     }
@@ -483,6 +537,15 @@ function importConfig() {
     reader.readAsText(file);
   };
   input.click();
+}
+
+function resetToDefault() {
+  if (confirm("Sei sicuro di voler ripristinare la configurazione predefinita? Tutti i dati personalizzati saranno persi.")) {
+    localStorage.removeItem("shopData");
+    shopData = JSON.parse(JSON.stringify(defaultShopData));
+    renderCategories(shopData);
+    alert("Configurazione predefinita ripristinata con successo!");
+  }
 }
 
 document.querySelectorAll(".category").forEach((el, index) => {
