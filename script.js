@@ -548,7 +548,7 @@ function setupModal() {
         const inputId = `price${header.toLowerCase()}`;
         const input = document.getElementById(inputId);
         if (input) {
-          data[header] = input.value;
+          data[header.toLowerCase()] = input.value;
         }
       });
 
@@ -712,16 +712,23 @@ function addProduct(category, productData) {
 }
 
 function updateProduct(category, productName, updatedData) {
-  const productIndex = shopData[category].products.findIndex(p => p.name === productName);
+  const productIndex = shopData[category].products.findIndex(
+    (p) => p.name === productName
+  );
   if (productIndex !== -1) {
-    shopData[category].products[productIndex] = { ...shopData[category].products[productIndex], ...updatedData };
+    shopData[category].products[productIndex] = {
+      ...shopData[category].products[productIndex],
+      ...updatedData,
+    };
     saveShopData();
     renderCategories(shopData);
   }
 }
 
 function removeProduct(category, productName) {
-  const productIndex = shopData[category].products.findIndex(p => p.name === productName);
+  const productIndex = shopData[category].products.findIndex(
+    (p) => p.name === productName
+  );
   if (productIndex !== -1) {
     shopData[category].products.splice(productIndex, 1);
     saveShopData();
