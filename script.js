@@ -134,6 +134,46 @@ function saveShopData() {
   localStorage.setItem("shopData", JSON.stringify(shopData));
 }
 
+// Funzione per aggiungere una nuova categoria
+function addCategory(categoryName, headers) {
+  if (!shopData[categoryName]) {
+    shopData[categoryName] = {
+      headers: headers,
+      products: []
+    };
+    saveShopData();
+    renderCategories(shopData);
+  } else {
+    console.error("Categoria già esistente:", categoryName);
+  }
+}
+
+// Funzione per rimuovere una categoria
+function removeCategory(categoryName) {
+  if (shopData[categoryName]) {
+    delete shopData[categoryName];
+    saveShopData();
+    renderCategories(shopData);
+  } else {
+    console.error("Categoria non trovata:", categoryName);
+  }
+}
+
+// Funzione per aggiornare una categoria
+function updateCategory(oldCategoryName, newCategoryName, newHeaders) {
+  if (shopData[oldCategoryName]) {
+    if (oldCategoryName !== newCategoryName) {
+      shopData[newCategoryName] = shopData[oldCategoryName];
+      delete shopData[oldCategoryName];
+    }
+    shopData[newCategoryName].headers = newHeaders;
+    saveShopData();
+    renderCategories(shopData);
+  } else {
+    console.error("Categoria non trovata:", oldCategoryName);
+  }
+}
+
 // Funzione per aggiungere un nuovo prodotto
 function addProduct(category, product) {
   if (shopData[category]) {
@@ -386,23 +426,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupModal() {
   const modal = document.getElementById("productModal");
-  const btn = document.getElementById("openModalBtn");
-  const span = document.getElementsByClassName("close")[0];
-  const form = document.getElementById("productForm");
-  const action = document.getElementById("action");
+  const categoryModal = document.getElementById("categoryModal");
+  const productBtn = document.getElementById("openProductModalBtn");
+  const categoryBtn = document.getElementById("openCategoryModalBtn");
+  const spans = document.getElementsByClassName("close");
+  const productForm = document.getElementById("productForm");
+  const categoryForm = document.getElementById("categoryForm");
+  const productAction = document.getElementById("productAction");
+  const categoryAction = document.getElementById("categoryAction");
   const productDetails = document.getElementById("productDetails");
+  const categoryDetails = document.getElementById("categoryDetails");
 
-  btn.onclick = () => (modal.style.display = "block");
-  span.onclick = () => (modal.style.display = "none");
+  productBtn.onclick = () => (modal.style.display = "block");
+  categoryBtn.onclick = () => (categoryModal.style.display = "block");
+  
+  Array.from(spans).forEach(span => {
+    span.onclick = () => {
+      modal.style.display = "none";
+      categoryModal.style.display = "none";
+    }
+  });
+
   window.onclick = (event) => {
     if (event.target == modal) modal.style.display = "none";
+    if (event.target == categoryModal) categoryModal.style.display = "none";
   };
 
-  action.onchange = () => {
-    productDetails.style.display = action.value === "remove" ? "none" : "flex";
+  productAction.onchange = () => {
+    productDetails.style.display = productAction.value === "remove" ? "none" : "flex";
   };
 
-  form.onsubmit = (e) => {
+  categoryAction.onchange = () => {
+    categoryDetails.style.display = categoryAction.value === "remove" ? "none" : "flex";
+  };
+
+  productForm.onsubmit = (e) => {
     e.preventDefault();
     const category = document.getElementById("category").value;
     const productName = document.getElementById("productName").value;
@@ -429,7 +487,7 @@ function setupModal() {
       }
     };
 
-    switch (action.value) {
+    switch (productAction.value) {
       case "add":
         addProduct(category, getProductData());
         break;
@@ -442,7 +500,29 @@ function setupModal() {
     }
 
     modal.style.display = "none";
-    form.reset();
+    productForm.reset();
+  };
+
+  categoryForm.onsubmit = (e) => {
+    e.preventDefault();
+    const categoryName = document.getElementById("categoryName").value;
+    const headers = document.getElementById("categoryHeaders").value.split(',').map(h => h.trim());
+
+    switch (categoryAction.value) {
+      case "add":
+        addCategory(categoryName, headers);
+        break;
+      case "remove":
+        removeCategory(categoryName);
+        break;
+      case "update":
+        const oldCategoryName = document.getElementById("oldCategoryName").value;
+        updateCategory(oldCategoryName, categoryName, headers);
+        break;
+    }
+
+    categoryModal.style.display = "none";
+    categoryForm.reset();
   };
 }
 

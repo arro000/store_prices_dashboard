@@ -26,37 +26,32 @@
         <h1 id="shop-name"></h1>
     </div>
     <div class="action-button-container">
-        <button id="openModalBtn" class="action-button">Gestisci Prodotti</button>
+        <button id="openProductModalBtn" class="action-button">Gestisci Prodotti</button>
+        <button id="openCategoryModalBtn" class="action-button">Gestisci Categorie</button>
         <button id="exportBtn" class="action-button">Esporta Configurazione</button>
         <button id="importBtn" class="action-button">Importa Configurazione</button>
-
     </div>
     
-  
     <div class="container-wrapper">
         <div id="container" class="container">
             <!-- Le categorie e i prodotti verranno inseriti qui dinamicamente da JavaScript -->
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Product Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Gestione Prodotti</h2>
             <form id="productForm">
-                <select id="action">
+                <select id="productAction">
                     <option value="add">Aggiungi Prodotto</option>
                     <option value="remove">Rimuovi Prodotto</option>
                     <option value="update">Aggiorna Prodotto</option>
                 </select>
                 <select id="category" required>
                     <option value="">Seleziona una categoria</option>
-                    <option value="GLASS HOUSE">GLASS HOUSE</option>
-                    <option value="INDOOR">INDOOR</option>
-                    <option value="IDROPONICA">IDROPONICA</option>
-                    <option value="HASHISH">HASHISH</option>
-                    <option value="TRINCIATO">TRINCIATO</option>
+                    <!-- Le categorie verranno popolate dinamicamente da JavaScript -->
                 </select>
                 <input type="text" id="productName" placeholder="Nome Prodotto" required>
                 <div id="productDetails">
@@ -77,6 +72,27 @@
                     <label>
                         <input type="checkbox" id="new"> Nuovo
                     </label>
+                </div>
+                <button type="submit">Esegui</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Gestione Categorie</h2>
+            <form id="categoryForm">
+                <select id="categoryAction">
+                    <option value="add">Aggiungi Categoria</option>
+                    <option value="remove">Rimuovi Categoria</option>
+                    <option value="update">Aggiorna Categoria</option>
+                </select>
+                <input type="text" id="categoryName" placeholder="Nome Categoria" required>
+                <input type="text" id="oldCategoryName" placeholder="Nome Categoria Vecchio (solo per aggiornamento)">
+                <div id="categoryDetails">
+                    <input type="text" id="categoryHeaders" placeholder="Intestazioni (separate da virgola)" required>
                 </div>
                 <button type="submit">Esegui</button>
             </form>
