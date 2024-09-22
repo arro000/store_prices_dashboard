@@ -370,6 +370,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCategories(shopData);
   animateLetters();
   setupModal();
+
+  document.getElementById('exportBtn').addEventListener('click', exportConfig);
+  document.getElementById('importBtn').addEventListener('click', importConfig);
 });
 
 function setupModal() {
@@ -423,6 +426,39 @@ function setupModal() {
     modal.style.display = "none";
     form.reset();
   };
+}
+
+function exportConfig() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(shopData));
+  const downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href", dataStr);
+  downloadAnchorNode.setAttribute("download", "shop_config.json");
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
+
+function importConfig() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json';
+  input.onchange = function(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const importedData = JSON.parse(e.target.result);
+        shopData = importedData;
+        saveShopData();
+        renderCategories(shopData);
+        alert('Configurazione importata con successo!');
+      } catch (error) {
+        alert('Errore durante l\'importazione della configurazione: ' + error.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
 }
 
 document.querySelectorAll(".category").forEach((el, index) => {
