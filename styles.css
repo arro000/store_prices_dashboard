@@ -199,23 +199,33 @@ body {
   animation: pulse 1s infinite;
 }
 
-.action-button {
+.action-button-container {
   position: fixed;
   top: 20px;
   right: 20px;
-  padding: 10px 20px;
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  border: none;
+
+  display: flex;
+  gap: 20px;
+}
+.action-button {
   border-radius: 5px;
   cursor: pointer;
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
   z-index: 1000;
   transition: all 0.3s ease;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
 }
 
 .action-button:hover {
+  background-color: var(--text-color);
+  color: var(--secondary-color);
+}
+
+.grid-row .action-button:hover {
   background-color: var(--text-color);
   color: var(--secondary-color);
 }
@@ -226,20 +236,23 @@ body {
   z-index: 1001;
   left: 0;
   top: 0;
+
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .modal-content {
   background-color: var(--primary-color);
   margin: 15% auto;
-  padding: 20px;
+  padding: 50px;
   border: 1px solid var(--secondary-color);
   width: 80%;
   max-width: 500px;
   border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.9);
+
   color: var(--text-color);
 }
 
@@ -314,15 +327,17 @@ body {
   align-items: center;
 }
 
-.grid-row:hover .price {
+.grid-row:hover .price-cell {
   display: none;
 }
 
 .grid-row:hover .actions-container {
-  display: flex;
+  position: relative;
+  display: block;
 }
 
-.edit-button, .delete-button {
+.edit-button,
+.delete-button {
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
@@ -342,22 +357,11 @@ body {
   color: var(--text-color);
 }
 
-.edit-button:hover, .delete-button:hover {
+.edit-button:hover,
+.delete-button:hover {
   transform: scale(1.1);
 }
 
 .grid-cell {
   position: relative;
-}
-
-.actions-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--primary-color);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
