@@ -128,6 +128,46 @@ const shopData = {
   },
 };
 
+// Funzione per aggiungere un nuovo prodotto
+function addProduct(category, product) {
+  if (shopData[category]) {
+    shopData[category].products.push(product);
+    renderCategories(shopData);
+  } else {
+    console.error("Categoria non trovata:", category);
+  }
+}
+
+// Funzione per rimuovere un prodotto
+function removeProduct(category, productName) {
+  if (shopData[category]) {
+    const index = shopData[category].products.findIndex(p => p.name === productName);
+    if (index !== -1) {
+      shopData[category].products.splice(index, 1);
+      renderCategories(shopData);
+    } else {
+      console.error("Prodotto non trovato:", productName);
+    }
+  } else {
+    console.error("Categoria non trovata:", category);
+  }
+}
+
+// Funzione per aggiornare le proprietà di un prodotto
+function updateProduct(category, productName, updatedProperties) {
+  if (shopData[category]) {
+    const product = shopData[category].products.find(p => p.name === productName);
+    if (product) {
+      Object.assign(product, updatedProperties);
+      renderCategories(shopData);
+    } else {
+      console.error("Prodotto non trovato:", productName);
+    }
+  } else {
+    console.error("Categoria non trovata:", category);
+  }
+}
+
 // script.js
 function renderCategories(data) {
   const container = document.getElementById("container");
@@ -261,6 +301,27 @@ function onPlayerReady(event) {
 document.addEventListener("DOMContentLoaded", () => {
   renderCategories(shopData);
   animateLetters();
+
+  // Esempi di utilizzo delle nuove funzioni
+  // Aggiungi un nuovo prodotto
+  addProduct("GLASS HOUSE", {
+    name: "NUOVO PRODOTTO",
+    "1g": "10€",
+    "2g": "18€",
+    "5g": "40€",
+    offerta: false,
+    new: true
+  });
+
+  // Rimuovi un prodotto
+  setTimeout(() => {
+    removeProduct("GLASS HOUSE", "SKUNK FACE");
+  }, 3000);
+
+  // Aggiorna le proprietà di un prodotto
+  setTimeout(() => {
+    updateProduct("INDOOR", "AMNESIA", { offerta: true, "1g": "9€" });
+  }, 6000);
 });
 
 document.querySelectorAll(".category").forEach((el, index) => {
