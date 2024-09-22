@@ -587,9 +587,10 @@ function setupModal() {
   categoryForm.onsubmit = (e) => {
     e.preventDefault();
     const categoryName = document.getElementById("categoryName").value;
-    const headers = document
-      .getElementById("categoryHeaders")
-      .value.split(",")
+    const headers = "PRODOTTO, 1G, 2G, 5G" // document
+      //   .getElementById("categoryHeaders")
+      // .value
+      .split(",")
       .map((h) => h.trim());
 
     switch (categoryAction.value) {
@@ -718,6 +719,12 @@ function updateCategory(oldCategoryName, newCategoryName, headers) {
   saveShopData();
   renderCategories(shopData);
 }
+function addCategory(newCategoryName, headers) {
+  shopData[newCategoryName] = { products: [], headers };
+  saveShopData();
+  renderCategories(shopData);
+}
+
 function addProduct(category, productData) {
   shopData[category].products.push(productData);
   saveShopData();
