@@ -399,10 +399,10 @@ function addProductToCategory(category) {
   const actionElement = document.getElementById("productAction");
   const categoryElement = document.getElementById("category");
   const productModalElement = document.getElementById("productModal");
+  updateCategorySelect();
 
   if (actionElement) actionElement.value = "add";
   if (categoryElement) {
-    updateCategorySelect();
     categoryElement.value = category;
   }
   if (productModalElement) productModalElement.style.display = "block";
@@ -491,6 +491,7 @@ function setupModal() {
   const productDetails = document.getElementById("productDetails");
   const categoryDetails = document.getElementById("categoryDetails");
   const categorySelect = document.getElementById("category");
+  updateCategorySelect();
 
   productBtn.onclick = () => {
     updateCategorySelect();
@@ -547,7 +548,7 @@ function setupModal() {
         const inputId = `price${header.toLowerCase()}`;
         const input = document.getElementById(inputId);
         if (input) {
-          data[header] = input.value;
+          data[header.toLowerCase()] = input.value;
         }
       });
 
@@ -695,3 +696,42 @@ document.querySelectorAll(".category").forEach((el, index) => {
 
 // Esporta la funzione per l'API di YouTube
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+function updateCategory(oldCategoryName, newCategoryName, headers) {
+  if (oldCategoryName !== newCategoryName) {
+    shopData[newCategoryName] = shopData[oldCategoryName];
+    delete shopData[oldCategoryName];
+  }
+  shopData[newCategoryName].headers = headers;
+  saveShopData();
+  renderCategories(shopData);
+}
+function addProduct(category, productData) {
+  shopData[category].products.push(productData);
+  saveShopData();
+  renderCategories(shopData);
+}
+
+function updateProduct(category, productName, updatedData) {
+  const productIndex = shopData[category].products.findIndex(
+    (p) => p.name === productName
+  );
+  if (productIndex !== -1) {
+    shopData[category].products[productIndex] = {
+      ...shopData[category].products[productIndex],
+      ...updatedData,
+    };
+    saveShopData();
+    renderCategories(shopData);
+  }
+}
+
+function removeProduct(category, productName) {
+  const productIndex = shopData[category].products.findIndex(
+    (p) => p.name === productName
+  );
+  if (productIndex !== -1) {
+    shopData[category].products.splice(productIndex, 1);
+    saveShopData();
+    renderCategories(shopData);
+  }
+}
