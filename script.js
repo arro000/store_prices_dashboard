@@ -346,6 +346,10 @@ function deleteCategory(category) {
   }
 }
 
+function saveShopData() {
+  localStorage.setItem("shopData", JSON.stringify(shopData));
+}
+
 function editProduct(category, productName) {
   const product = shopData[category].products.find(
     (p) => p.name === productName
