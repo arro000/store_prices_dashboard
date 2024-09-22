@@ -188,16 +188,32 @@ function renderCategories(data) {
     const categoryActions = document.createElement("div");
     categoryActions.className = "category-actions";
 
+    const leftButtons = document.createElement("div");
+    leftButtons.className = "left-buttons";
+
     const editButton = document.createElement("button");
-    editButton.textContent = "Modifica";
+    editButton.textContent = "✏️ Modifica";
     editButton.onclick = () => editCategory(category);
 
+    const addButton = document.createElement("button");
+    addButton.textContent = "➕ Aggiungi Prodotto";
+    addButton.onclick = () => addProductToCategory(category);
+
+    leftButtons.appendChild(editButton);
+    leftButtons.appendChild(addButton);
+
+    const rightButtons = document.createElement("div");
+    rightButtons.className = "right-buttons";
+
     const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Elimina";
+    deleteButton.textContent = "🗑️ Elimina";
+    deleteButton.className = "delete-button";
     deleteButton.onclick = () => deleteCategory(category);
 
-    categoryActions.appendChild(editButton);
-    categoryActions.appendChild(deleteButton);
+    rightButtons.appendChild(deleteButton);
+
+    categoryActions.appendChild(leftButtons);
+    categoryActions.appendChild(rightButtons);
 
     headerContainer.appendChild(categoryName);
     headerContainer.appendChild(categoryActions);
@@ -365,6 +381,18 @@ function deleteProduct(category, productName) {
   ) {
     removeProduct(category, productName);
   }
+}
+
+function addProductToCategory(category) {
+  const actionElement = document.getElementById("productAction");
+  const categoryElement = document.getElementById("category");
+  const productModalElement = document.getElementById("productModal");
+
+  if (actionElement) actionElement.value = "add";
+  if (categoryElement) categoryElement.value = category;
+  if (productModalElement) productModalElement.style.display = "block";
+
+  updateProductForm(category);
 }
 
 function animateLetters() {

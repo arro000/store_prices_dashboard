@@ -153,10 +153,11 @@ body {
   right: 0;
   bottom: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease;
+  padding: 0 10px;
 }
 
 .category-header:hover .category-actions {
@@ -177,6 +178,19 @@ body {
 .category-actions button:hover {
   background-color: var(--text-color);
   color: var(--secondary-color);
+}
+
+.category-actions .left-buttons,
+.category-actions .right-buttons {
+  display: flex;
+}
+
+.category-actions .delete-button {
+  background-color: #ff4136;
+}
+
+.category-actions .delete-button:hover {
+  background-color: #ff7166;
 }
 
 @keyframes glow {
