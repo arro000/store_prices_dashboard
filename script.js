@@ -392,6 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("exportBtn").addEventListener("click", exportConfig);
   document.getElementById("importBtn").addEventListener("click", importConfig);
   document.getElementById("resetBtn").addEventListener("click", resetToDefault);
+  document.getElementById("clearLocalStorageBtn").addEventListener("click", clearLocalStorage);
 });
 
 function setupModal() {
@@ -545,6 +546,15 @@ function resetToDefault() {
     shopData = JSON.parse(JSON.stringify(defaultShopData));
     renderCategories(shopData);
     alert("Configurazione predefinita ripristinata con successo!");
+  }
+}
+
+function clearLocalStorage() {
+  if (confirm("Sei sicuro di voler eliminare tutti i dati locali? Questa azione non può essere annullata.")) {
+    localStorage.clear();
+    shopData = JSON.parse(JSON.stringify(defaultShopData));
+    renderCategories(shopData);
+    alert("Dati locali eliminati con successo. L'applicazione sta utilizzando la configurazione predefinita.");
   }
 }
 
