@@ -199,6 +199,91 @@ body {
   animation: pulse 1s infinite;
 }
 
+.action-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: var(--text-color);
+  color: var(--secondary-color);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: var(--primary-color);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid var(--secondary-color);
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  color: var(--text-color);
+}
+
+.close {
+  color: var(--text-color);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: var(--secondary-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#productForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#productForm input,
+#productForm select,
+#productForm button {
+  padding: 5px;
+  font-family: "Orbitron", sans-serif;
+}
+
+#productDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#productDetails input[type="text"] {
+  flex: 1 1 calc(33% - 10px);
+}
+
+#productDetails label {
+  flex: 1 1 calc(50% - 10px);
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);

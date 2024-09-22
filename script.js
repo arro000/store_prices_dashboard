@@ -301,28 +301,61 @@ function onPlayerReady(event) {
 document.addEventListener("DOMContentLoaded", () => {
   renderCategories(shopData);
   animateLetters();
-
-  // Esempi di utilizzo delle nuove funzioni
-  // Aggiungi un nuovo prodotto
-  addProduct("GLASS HOUSE", {
-    name: "NUOVO PRODOTTO",
-    "1g": "10€",
-    "2g": "18€",
-    "5g": "40€",
-    offerta: false,
-    new: true
-  });
-
-  // Rimuovi un prodotto
-  setTimeout(() => {
-    removeProduct("GLASS HOUSE", "SKUNK FACE");
-  }, 3000);
-
-  // Aggiorna le proprietà di un prodotto
-  setTimeout(() => {
-    updateProduct("INDOOR", "AMNESIA", { offerta: true, "1g": "9€" });
-  }, 6000);
+  setupModal();
 });
+
+function setupModal() {
+  const modal = document.getElementById("productModal");
+  const btn = document.getElementById("openModalBtn");
+  const span = document.getElementsByClassName("close")[0];
+  const form = document.getElementById("productForm");
+  const action = document.getElementById("action");
+  const productDetails = document.getElementById("productDetails");
+
+  btn.onclick = () => modal.style.display = "block";
+  span.onclick = () => modal.style.display = "none";
+  window.onclick = (event) => {
+    if (event.target == modal) modal.style.display = "none";
+  }
+
+  action.onchange = () => {
+    productDetails.style.display = action.value === "remove" ? "none" : "flex";
+  }
+
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    const category = document.getElementById("category").value;
+    const productName = document.getElementById("productName").value;
+
+    switch(action.value) {
+      case "add":
+        addProduct(category, {
+          name: productName,
+          "1g": document.getElementById("price1g").value,
+          "2g": document.getElementById("price2g").value,
+          "5g": document.getElementById("price5g").value,
+          offerta: document.getElementById("offerta").checked,
+          new: document.getElementById("new").checked
+        });
+        break;
+      case "remove":
+        removeProduct(category, productName);
+        break;
+      case "update":
+        updateProduct(category, productName, {
+          "1g": document.getElementById("price1g").value,
+          "2g": document.getElementById("price2g").value,
+          "5g": document.getElementById("price5g").value,
+          offerta: document.getElementById("offerta").checked,
+          new: document.getElementById("new").checked
+        });
+        break;
+    }
+
+    modal.style.display = "none";
+    form.reset();
+  }
+}
 
 document.querySelectorAll(".category").forEach((el, index) => {
   el.style.setProperty("animation-delay", index + 1 * 6 + "s");

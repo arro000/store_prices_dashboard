@@ -25,9 +25,39 @@
     <div class="store-name-container">
         <h1 id="shop-name"></h1>
     </div>
+    <button id="openModalBtn" class="action-button">Gestisci Prodotti</button>
     <div class="container-wrapper">
         <div id="container" class="container">
             <!-- Le categorie e i prodotti verranno inseriti qui dinamicamente da JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Gestione Prodotti</h2>
+            <form id="productForm">
+                <select id="action">
+                    <option value="add">Aggiungi Prodotto</option>
+                    <option value="remove">Rimuovi Prodotto</option>
+                    <option value="update">Aggiorna Prodotto</option>
+                </select>
+                <input type="text" id="category" placeholder="Categoria" required>
+                <input type="text" id="productName" placeholder="Nome Prodotto" required>
+                <div id="productDetails">
+                    <input type="text" id="price1g" placeholder="Prezzo 1g">
+                    <input type="text" id="price2g" placeholder="Prezzo 2g">
+                    <input type="text" id="price5g" placeholder="Prezzo 5g">
+                    <label>
+                        <input type="checkbox" id="offerta"> Offerta
+                    </label>
+                    <label>
+                        <input type="checkbox" id="new"> Nuovo
+                    </label>
+                </div>
+                <button type="submit">Esegui</button>
+            </form>
         </div>
     </div>
 </body>
