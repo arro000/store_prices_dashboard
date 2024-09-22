@@ -343,21 +343,33 @@ function editProduct(category, productName) {
     (p) => p.name === productName
   );
   if (product) {
-    document.getElementById("action").value = "update";
-    document.getElementById("category").value = category;
-    document.getElementById("productName").value = productName;
+    const actionElement = document.getElementById("productAction");
+    const categoryElement = document.getElementById("category");
+    const productNameElement = document.getElementById("productName");
+    const price1gElement = document.getElementById("price1g");
+    const price2gElement = document.getElementById("price2g");
+    const price5gElement = document.getElementById("price5g");
+    const offertaElement = document.getElementById("offerta");
+    const newElement = document.getElementById("new");
+    const productModalElement = document.getElementById("productModal");
+
+    if (actionElement) actionElement.value = "update";
+    if (categoryElement) categoryElement.value = category;
+    if (productNameElement) productNameElement.value = productName;
+
     if (category === "TRINCIATO") {
-      document.getElementById("price1g").value = product["10g"].replace("", "");
-      document.getElementById("price2g").value = product["20g"].replace("", "");
-      document.getElementById("price5g").value = product["50g"].replace("", "");
+      if (price1gElement) price1gElement.value = product["10g"] || "";
+      if (price2gElement) price2gElement.value = product["20g"] || "";
+      if (price5gElement) price5gElement.value = product["50g"] || "";
     } else {
-      document.getElementById("price1g").value = product["1g"].replace("", "");
-      document.getElementById("price2g").value = product["2g"].replace("", "");
-      document.getElementById("price5g").value = product["5g"].replace("", "");
+      if (price1gElement) price1gElement.value = product["1g"] || "";
+      if (price2gElement) price2gElement.value = product["2g"] || "";
+      if (price5gElement) price5gElement.value = product["5g"] || "";
     }
-    document.getElementById("offerta").checked = product.offerta;
-    document.getElementById("new").checked = product.new;
-    document.getElementById("productModal").style.display = "block";
+
+    if (offertaElement) offertaElement.checked = product.offerta;
+    if (newElement) newElement.checked = product.new;
+    if (productModalElement) productModalElement.style.display = "block";
   }
 }
 
