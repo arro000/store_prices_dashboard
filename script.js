@@ -397,10 +397,24 @@ function addProductToCategory(category) {
   const productModalElement = document.getElementById("productModal");
 
   if (actionElement) actionElement.value = "add";
-  if (categoryElement) categoryElement.value = category;
+  if (categoryElement) {
+    updateCategorySelect();
+    categoryElement.value = category;
+  }
   if (productModalElement) productModalElement.style.display = "block";
 
   updateProductForm(category);
+}
+
+function updateCategorySelect() {
+  const categorySelect = document.getElementById("category");
+  categorySelect.innerHTML = "";
+  Object.keys(shopData).forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categorySelect.appendChild(option);
+  });
 }
 
 function animateLetters() {
@@ -472,8 +486,12 @@ function setupModal() {
   const categoryAction = document.getElementById("categoryAction");
   const productDetails = document.getElementById("productDetails");
   const categoryDetails = document.getElementById("categoryDetails");
+  const categorySelect = document.getElementById("category");
 
-  productBtn.onclick = () => (modal.style.display = "block");
+  productBtn.onclick = () => {
+    updateCategorySelect();
+    modal.style.display = "block";
+  };
   categoryBtn.onclick = () => (categoryModal.style.display = "block");
 
   Array.from(spans).forEach((span) => {
@@ -497,6 +515,16 @@ function setupModal() {
     categoryDetails.style.display =
       categoryAction.value === "remove" ? "none" : "flex";
   };
+
+  function updateCategorySelect() {
+    categorySelect.innerHTML = "";
+    Object.keys(shopData).forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      categorySelect.appendChild(option);
+    });
+  }
 
   productForm.onsubmit = (e) => {
     e.preventDefault();
