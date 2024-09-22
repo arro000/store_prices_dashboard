@@ -201,28 +201,51 @@ body {
 
 .action-button-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
-
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  z-index: 1000;
 }
+
+.action-button-container:hover {
+  opacity: 1;
+}
+
+.left-buttons, .right-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .action-button {
   border-radius: 5px;
   cursor: pointer;
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
-  z-index: 1000;
   transition: all 0.3s ease;
-  padding: 10px 20px;
+  padding: 10px 15px;
   background-color: var(--secondary-color);
   color: var(--text-color);
   border: none;
+  font-size: 14px;
 }
 
 .action-button:hover {
   background-color: var(--text-color);
   color: var(--secondary-color);
+}
+
+.action-button.danger {
+  background-color: #ff4136;
+}
+
+.action-button.danger:hover {
+  background-color: #ff7166;
 }
 
 .grid-row .action-button:hover {
