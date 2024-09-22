@@ -179,13 +179,28 @@ function renderCategories(data) {
     categoryDiv.className = "category";
 
     const headerContainer = document.createElement("div");
-    headerContainer.className = "category-header-container";
+    headerContainer.className = "category-header glow-text";
 
-    const header = document.createElement("div");
-    header.className = "category-header glow-text";
-    header.textContent = category;
+    const categoryName = document.createElement("span");
+    categoryName.className = "category-name";
+    categoryName.textContent = category;
 
-    headerContainer.appendChild(header);
+    const categoryActions = document.createElement("div");
+    categoryActions.className = "category-actions";
+
+    const editButton = document.createElement("button");
+    editButton.textContent = "Modifica";
+    editButton.onclick = () => editCategory(category);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Elimina";
+    deleteButton.onclick = () => deleteCategory(category);
+
+    categoryActions.appendChild(editButton);
+    categoryActions.appendChild(deleteButton);
+
+    headerContainer.appendChild(categoryName);
+    headerContainer.appendChild(categoryActions);
 
     categoryDiv.appendChild(headerContainer);
 
@@ -254,39 +269,55 @@ function renderCategories(data) {
         }
 
         row.appendChild(cell);
-        if (index === headers.length - 1 && index != 0) {
-          const actionsContainer = document.createElement("div");
-          actionsContainer.className = "grid-cell actions-container";
-
-          const editButton = document.createElement("button");
-          editButton.textContent = "Modifica";
-          editButton.className = "edit-button";
-          editButton.onclick = () => editProduct(category, product.name);
-
-          const deleteButton = document.createElement("button");
-          deleteButton.textContent = "Elimina";
-          deleteButton.className = "delete-button";
-          deleteButton.onclick = () => deleteProduct(category, product.name);
-
-          actionsContainer.appendChild(editButton);
-          row.appendChild(actionsContainer);
-
-          let empty = document.createElement("div");
-          empty.className = "grid-cell actions-container";
-          row.appendChild(empty);
-          empty = document.createElement("div");
-          empty.className = "grid-cell actions-container";
-
-          empty.appendChild(deleteButton);
-          row.appendChild(empty);
-        }
       });
+
+      const actionsContainer = document.createElement("div");
+      actionsContainer.className = "grid-cell actions-container";
+
+      const editButton = document.createElement("button");
+      editButton.textContent = "Modifica";
+      editButton.className = "edit-button";
+      editButton.onclick = () => editProduct(category, product.name);
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Elimina";
+      deleteButton.className = "delete-button";
+      deleteButton.onclick = () => deleteProduct(category, product.name);
+
+      actionsContainer.appendChild(editButton);
+      actionsContainer.appendChild(deleteButton);
+      row.appendChild(actionsContainer);
 
       grid.appendChild(row);
     });
 
     categoryDiv.appendChild(grid);
     container.appendChild(categoryDiv);
+  }
+}
+
+function editCategory(category) {
+  const categoryData = shopData[category];
+  if (categoryData) {
+    const actionElement = document.getElementById("categoryAction");
+    const categoryNameElement = document.getElementById("categoryName");
+    const oldCategoryNameElement = document.getElementById("oldCategoryName");
+    const categoryHeadersElement = document.getElementById("categoryHeaders");
+    const categoryModalElement = document.getElementById("categoryModal");
+
+    if (actionElement) actionElement.value = "update";
+    if (categoryNameElement) categoryNameElement.value = category;
+    if (oldCategoryNameElement) oldCategoryNameElement.value = category;
+    if (categoryHeadersElement) categoryHeadersElement.value = categoryData.headers.join(", ");
+    if (categoryModalElement) categoryModalElement.style.display = "block";
+  }
+}
+
+function deleteCategory(category) {
+  if (confirm(`Sei sicuro di voler eliminare la categoria ${category}?`)) {
+    delete shopData[category];
+    saveShopData();
+    renderCategories(shopData);
   }
 }
 
@@ -436,25 +467,22 @@ function setupModal() {
     const productName = document.getElementById("productName").value;
 
     const getProductData = () => {
-      if (category === "TRINCIATO") {
-        return {
-          name: productName,
-          "10g": document.getElementById("price1g").value,
-          "20g": document.getElementById("price2g").value,
-          "50g": document.getElementById("price5g").value,
-          offerta: document.getElementById("offerta").checked,
-          new: document.getElementById("new").checked,
-        };
-      } else {
-        return {
-          name: productName,
-          "1g": document.getElementById("price1g").value,
-          "2g": document.getElementById("price2g").value,
-          "5g": document.getElementById("price5g").value,
-          offerta: document.getElementById("offerta").checked,
-          new: document.getElementById("new").checked,
-        };
-      }
+      const data = {
+        name: productName,
+        offerta: document.getElementById("offerta").checked,
+        new: document.getElementById("new").checked,
+      };
+
+      const headers = shopData[category].headers.slice(1);  // Exclude "PRODOTTO"
+      headers.forEach(header => {
+        const inputId = `price${header.toLowerCase()}`;
+        const input = document.getElementById(inputId);
+        if (input) {
+          data[header] = input.value;
+        }
+      });
+
+      return data;
     };
 
     switch (productAction.value) {
@@ -499,6 +527,33 @@ function setupModal() {
     categoryForm.reset();
   };
 }
+
+function updateProductForm(category) {
+  const productDetails = document.getElementById("productDetails");
+  productDetails.innerHTML = "";
+
+  const headers = shopData[category].headers.slice(1);  // Exclude "PRODOTTO"
+  headers.forEach(header => {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = `price${header.toLowerCase()}`;
+    input.placeholder = `Prezzo ${header}`;
+    productDetails.appendChild(input);
+  });
+
+  const offertaLabel = document.createElement("label");
+  offertaLabel.innerHTML = '<input type="checkbox" id="offerta"> Offerta';
+  productDetails.appendChild(offertaLabel);
+
+  const newLabel = document.createElement("label");
+  newLabel.innerHTML = '<input type="checkbox" id="new"> Nuovo';
+  productDetails.appendChild(newLabel);
+}
+
+// Add this to your existing event listeners
+document.getElementById("category").addEventListener("change", function() {
+  updateProductForm(this.value);
+});
 
 function exportConfig() {
   const dataStr =
