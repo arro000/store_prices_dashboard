@@ -10,25 +10,25 @@ const defaultShopData = {
     products: [
       {
         name: "SKUNK FACE",
-        "1g": "8€",
-        "2g": "15€",
-        "5g": "25€",
+        "1g": "8",
+        "2g": "15",
+        "5g": "25",
         offerta: false,
         new: false,
       },
       {
         name: "BLACK POISON",
-        "1g": "5€",
-        "2g": "10€",
-        "5g": "20€",
+        "1g": "5",
+        "2g": "10",
+        "5g": "20",
         offerta: true,
         new: false,
       },
       {
         name: "LEMON HAZE",
-        "1g": "5€",
-        "2g": "10€",
-        "5g": "20€",
+        "1g": "5",
+        "2g": "10",
+        "5g": "20",
         offerta: true,
         new: true,
       },
@@ -39,30 +39,30 @@ const defaultShopData = {
     products: [
       {
         name: "AMNESIA",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "OG KUSH",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "CARAMEL COOKIES",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
       {
         name: "TYSON HAZE",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "28€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "28",
         offerta: false,
       },
     ],
@@ -72,17 +72,17 @@ const defaultShopData = {
     products: [
       {
         name: "SUNSHINE",
-        "1g": "10€",
-        "2g": "17.5€",
-        "5g": "30€",
+        "1g": "10",
+        "2g": "17.5",
+        "5g": "30",
         offerta: true,
       },
-      { name: "HULK", "1g": "12€", "2g": "20€", "5g": "36€", offerta: false },
+      { name: "HULK", "1g": "12", "2g": "20", "5g": "36", offerta: false },
       {
         name: "ANDY PUNCH",
-        "1g": "12€",
-        "2g": "20€",
-        "5g": "36€",
+        "1g": "12",
+        "2g": "20",
+        "5g": "36",
         offerta: false,
       },
     ],
@@ -92,24 +92,24 @@ const defaultShopData = {
     products: [
       {
         name: "SUPER POLLEN",
-        "1g": "10€",
-        "2g": "15€",
-        "5g": "30€",
+        "1g": "10",
+        "2g": "15",
+        "5g": "30",
         offerta: false,
       },
-      { name: "CHARAS", "1g": "10€", "2g": "15€", "5g": "30€", offerta: false },
+      { name: "CHARAS", "1g": "10", "2g": "15", "5g": "30", offerta: false },
       {
         name: "SUPER CREME 30%",
-        "1g": "12€",
-        "2g": "20€",
-        "5g": "36€",
+        "1g": "12",
+        "2g": "20",
+        "5g": "36",
         offerta: false,
       },
       {
         name: "CRUMBLE (LEMON PIE 96%)",
-        "1g": "15€",
-        "2g": "23€",
-        "5g": "40€",
+        "1g": "15",
+        "2g": "23",
+        "5g": "40",
         offerta: false,
       },
     ],
@@ -119,19 +119,19 @@ const defaultShopData = {
     products: [
       {
         name: "TRINCIATO CLASSICO",
-        "10g": "10€",
-        "20g": "20€",
-        "50g": "50€",
+        "10g": "10",
+        "20g": "20",
+        "50g": "50",
         offerta: false,
       },
     ],
   },
 };
 
-let shopData = JSON.parse(localStorage.getItem('shopData')) || defaultShopData;
+let shopData = JSON.parse(localStorage.getItem("shopData")) || defaultShopData;
 
 function saveShopData() {
-  localStorage.setItem('shopData', JSON.stringify(shopData));
+  localStorage.setItem("shopData", JSON.stringify(shopData));
 }
 
 // Funzione per aggiungere un nuovo prodotto
@@ -257,7 +257,7 @@ function renderCategories(data) {
           const priceSpan = document.createElement("span");
           priceSpan.className = "price";
           cell.className = cell.className + " price-cell";
-          priceSpan.textContent = product[key.toLowerCase()] || "-";
+          priceSpan.textContent = product[key.toLowerCase()] + "€" || "-";
           cell.appendChild(priceSpan);
         }
 
@@ -277,12 +277,15 @@ function renderCategories(data) {
           deleteButton.onclick = () => deleteProduct(category, product.name);
 
           actionsContainer.appendChild(editButton);
-          actionsContainer.appendChild(deleteButton);
           row.appendChild(actionsContainer);
 
-          const empty = document.createElement("div");
-          empty.className = "grid-cell ";
+          let empty = document.createElement("div");
+          empty.className = "grid-cell actions-container";
           row.appendChild(empty);
+          empty = document.createElement("div");
+          empty.className = "grid-cell actions-container";
+
+          empty.appendChild(deleteButton);
           row.appendChild(empty);
         }
       });
@@ -303,9 +306,9 @@ function editProduct(category, productName) {
     document.getElementById("action").value = "update";
     document.getElementById("category").value = category;
     document.getElementById("productName").value = productName;
-    document.getElementById("price1g").value = product["1g"].replace("€", "");
-    document.getElementById("price2g").value = product["2g"].replace("€", "");
-    document.getElementById("price5g").value = product["5g"].replace("€", "");
+    document.getElementById("price1g").value = product["1g"].replace("", "");
+    document.getElementById("price2g").value = product["2g"].replace("", "");
+    document.getElementById("price5g").value = product["5g"].replace("", "");
     document.getElementById("offerta").checked = product.offerta;
     document.getElementById("new").checked = product.new;
     document.getElementById("productModal").style.display = "block";
@@ -366,13 +369,13 @@ function onPlayerReady(event) {
 
 // Inizializzazione
 document.addEventListener("DOMContentLoaded", () => {
-  shopData = JSON.parse(localStorage.getItem('shopData')) || defaultShopData;
+  shopData = JSON.parse(localStorage.getItem("shopData")) || defaultShopData;
   renderCategories(shopData);
   animateLetters();
   setupModal();
 
-  document.getElementById('exportBtn').addEventListener('click', exportConfig);
-  document.getElementById('importBtn').addEventListener('click', importConfig);
+  document.getElementById("exportBtn").addEventListener("click", exportConfig);
+  document.getElementById("importBtn").addEventListener("click", importConfig);
 });
 
 function setupModal() {
@@ -429,8 +432,10 @@ function setupModal() {
 }
 
 function exportConfig() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(shopData));
-  const downloadAnchorNode = document.createElement('a');
+  const dataStr =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(shopData));
+  const downloadAnchorNode = document.createElement("a");
   downloadAnchorNode.setAttribute("href", dataStr);
   downloadAnchorNode.setAttribute("download", "shop_config.json");
   document.body.appendChild(downloadAnchorNode);
@@ -439,21 +444,23 @@ function exportConfig() {
 }
 
 function importConfig() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'application/json';
-  input.onchange = function(event) {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/json";
+  input.onchange = function (event) {
     const file = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       try {
         const importedData = JSON.parse(e.target.result);
         shopData = importedData;
         saveShopData();
         renderCategories(shopData);
-        alert('Configurazione importata con successo!');
+        alert("Configurazione importata con successo!");
       } catch (error) {
-        alert('Errore durante l\'importazione della configurazione: ' + error.message);
+        alert(
+          "Errore durante l'importazione della configurazione: " + error.message
+        );
       }
     };
     reader.readAsText(file);
