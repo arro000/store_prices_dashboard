@@ -344,9 +344,9 @@ body {
   gap: 10px;
 }
 
-#categoryForm input,
-#categoryForm select,
-#categoryForm button {
+.modal-content input,
+.modal-content select,
+.modal-content button {
   padding: 10px;
   font-family: "Orbitron", sans-serif;
   background-color: var(--primary-color);

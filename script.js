@@ -337,6 +337,19 @@ function editCategory(category) {
     if (categoryModalElement) categoryModalElement.style.display = "block";
   }
 }
+function addCategoryModal() {
+  const actionElement = document.getElementById("categoryAction");
+  const categoryNameElement = document.getElementById("categoryName");
+  const oldCategoryNameElement = document.getElementById("oldCategoryName");
+  const categoryHeadersElement = document.getElementById("categoryHeaders");
+  const categoryModalElement = document.getElementById("categoryModal");
+
+  if (actionElement) actionElement.value = "add";
+  if (categoryNameElement) categoryNameElement.value = "";
+  if (oldCategoryNameElement) oldCategoryNameElement.value = "";
+  if (categoryHeadersElement) categoryHeadersElement.value = "";
+  if (categoryModalElement) categoryModalElement.style.display = "block";
+}
 
 function deleteCategory(category) {
   if (confirm(`Sei sicuro di voler eliminare la categoria ${category}?`)) {
@@ -497,7 +510,7 @@ function setupModal() {
     updateCategorySelect();
     modal.style.display = "block";
   };
-  categoryBtn.onclick = () => (categoryModal.style.display = "block");
+  categoryBtn.onclick = () => addCategoryModal();
 
   Array.from(spans).forEach((span) => {
     span.onclick = () => {

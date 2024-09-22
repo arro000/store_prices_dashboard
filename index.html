@@ -27,13 +27,13 @@
     </div>
     <div class="action-button-container">
         <div class="left-buttons">
-            <button id="openProductModalBtn" class="action-button">🛍️ Gestisci Prodotti</button>
-            <button id="openCategoryModalBtn" class="action-button">📁 Gestisci Categorie</button>
+            <button id="openProductModalBtn" class="action-button" style="display: none;">🛍️ Gestisci Prodotti</button>
+            <button id="openCategoryModalBtn" class="action-button">📁 Aggiungi Categorie</button>
         </div>
         <div class="right-buttons">
             <button id="exportBtn" class="action-button">📤 Esporta</button>
-            <button id="importBtn" class="action-button">📥 Importa</button>
-            <button id="resetBtn" class="action-button">🔄 Ripristina</button>
+            <button id="importBtn" class="action-button">📥 Importa</button> 
+            <button id="resetBtn" class="action-button danger">🔄 Ripristina</button>
             <button id="clearLocalStorageBtn" class="action-button danger">🗑️ Elimina Dati</button>
         </div>
     </div>
@@ -50,7 +50,7 @@
             <span class="close">&times;</span>
             <h2>Gestione Prodotti</h2>
             <form id="productForm">
-                <select id="productAction">
+                <select id="productAction"  disabled>
                     <option value="add">Aggiungi Prodotto</option>
                     <option value="remove">Rimuovi Prodotto</option>
                     <option value="update">Aggiorna Prodotto</option>
@@ -90,13 +90,14 @@
             <span class="close">&times;</span>
             <h2>Gestione Categorie</h2>
             <form id="categoryForm">
-                <select id="categoryAction">
+                <select id="categoryAction"  disabled>
                     <option value="add">Aggiungi Categoria</option>
                     <option value="remove">Rimuovi Categoria</option>
                     <option value="update">Aggiorna Categoria</option>
                 </select>
                 <input type="text" id="categoryName" placeholder="Nome Categoria" required>
-                <input type="text" id="oldCategoryName" placeholder="Nome Categoria Vecchio (solo per aggiornamento)">
+                <label for="oldCategoryName">Vecchio nome categoria</label>
+                <input type="text" id="oldCategoryName" placeholder="Nome Categoria Vecchio (solo per aggiornamento)" disabled>
                 <div id="categoryDetails">
                     <input type="text" id="categoryHeaders" placeholder="Intestazioni (separate da virgola)" required>
                 </div>
