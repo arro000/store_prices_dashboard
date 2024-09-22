@@ -306,9 +306,15 @@ function editProduct(category, productName) {
     document.getElementById("action").value = "update";
     document.getElementById("category").value = category;
     document.getElementById("productName").value = productName;
-    document.getElementById("price1g").value = product["1g"].replace("", "");
-    document.getElementById("price2g").value = product["2g"].replace("", "");
-    document.getElementById("price5g").value = product["5g"].replace("", "");
+    if (category === "TRINCIATO") {
+      document.getElementById("price1g").value = product["10g"].replace("", "");
+      document.getElementById("price2g").value = product["20g"].replace("", "");
+      document.getElementById("price5g").value = product["50g"].replace("", "");
+    } else {
+      document.getElementById("price1g").value = product["1g"].replace("", "");
+      document.getElementById("price2g").value = product["2g"].replace("", "");
+      document.getElementById("price5g").value = product["5g"].replace("", "");
+    }
     document.getElementById("offerta").checked = product.offerta;
     document.getElementById("new").checked = product.new;
     document.getElementById("productModal").style.display = "block";
@@ -401,28 +407,37 @@ function setupModal() {
     const category = document.getElementById("category").value;
     const productName = document.getElementById("productName").value;
 
-    switch (action.value) {
-      case "add":
-        addProduct(category, {
+    const getProductData = () => {
+      if (category === "TRINCIATO") {
+        return {
+          name: productName,
+          "10g": document.getElementById("price1g").value,
+          "20g": document.getElementById("price2g").value,
+          "50g": document.getElementById("price5g").value,
+          offerta: document.getElementById("offerta").checked,
+          new: document.getElementById("new").checked,
+        };
+      } else {
+        return {
           name: productName,
           "1g": document.getElementById("price1g").value,
           "2g": document.getElementById("price2g").value,
           "5g": document.getElementById("price5g").value,
           offerta: document.getElementById("offerta").checked,
           new: document.getElementById("new").checked,
-        });
+        };
+      }
+    };
+
+    switch (action.value) {
+      case "add":
+        addProduct(category, getProductData());
         break;
       case "remove":
         removeProduct(category, productName);
         break;
       case "update":
-        updateProduct(category, productName, {
-          "1g": document.getElementById("price1g").value,
-          "2g": document.getElementById("price2g").value,
-          "5g": document.getElementById("price5g").value,
-          offerta: document.getElementById("offerta").checked,
-          new: document.getElementById("new").checked,
-        });
+        updateProduct(category, productName, getProductData());
         break;
     }
 

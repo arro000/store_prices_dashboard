@@ -63,6 +63,14 @@
                     <input type="text" id="price1g" placeholder="Prezzo 1g">
                     <input type="text" id="price2g" placeholder="Prezzo 2g">
                     <input type="text" id="price5g" placeholder="Prezzo 5g">
+                    <script>
+                        document.getElementById('category').addEventListener('change', function() {
+                            const isTrinciato = this.value === 'TRINCIATO';
+                            document.getElementById('price1g').placeholder = isTrinciato ? 'Prezzo 10g' : 'Prezzo 1g';
+                            document.getElementById('price2g').placeholder = isTrinciato ? 'Prezzo 20g' : 'Prezzo 2g';
+                            document.getElementById('price5g').placeholder = isTrinciato ? 'Prezzo 50g' : 'Prezzo 5g';
+                        });
+                    </script>
                     <label>
                         <input type="checkbox" id="offerta"> Offerta
                     </label>
