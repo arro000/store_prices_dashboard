@@ -5,7 +5,7 @@ const config = {
   videoQuality: "hd720",
 };
 const defaultShopData = {
-  "GLASS HOUSE": {
+  "🏠 GLASS HOUSE": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
       {
