@@ -4,7 +4,7 @@ const config = {
   videoId: "GWA6cNhgSs4",
   videoQuality: "hd720",
 };
-const shopData = {
+const defaultShopData = {
   "GLASS HOUSE": {
     headers: ["PRODOTTO", "1G", "2G", "5G"],
     products: [
@@ -128,10 +128,17 @@ const shopData = {
   },
 };
 
+let shopData = JSON.parse(localStorage.getItem('shopData')) || defaultShopData;
+
+function saveShopData() {
+  localStorage.setItem('shopData', JSON.stringify(shopData));
+}
+
 // Funzione per aggiungere un nuovo prodotto
 function addProduct(category, product) {
   if (shopData[category]) {
     shopData[category].products.push(product);
+    saveShopData();
     renderCategories(shopData);
   } else {
     console.error("Categoria non trovata:", category);
@@ -146,6 +153,7 @@ function removeProduct(category, productName) {
     );
     if (index !== -1) {
       shopData[category].products.splice(index, 1);
+      saveShopData();
       renderCategories(shopData);
     } else {
       console.error("Prodotto non trovato:", productName);
@@ -163,6 +171,7 @@ function updateProduct(category, productName, updatedProperties) {
     );
     if (product) {
       Object.assign(product, updatedProperties);
+      saveShopData();
       renderCategories(shopData);
     } else {
       console.error("Prodotto non trovato:", productName);
@@ -357,6 +366,7 @@ function onPlayerReady(event) {
 
 // Inizializzazione
 document.addEventListener("DOMContentLoaded", () => {
+  shopData = JSON.parse(localStorage.getItem('shopData')) || defaultShopData;
   renderCategories(shopData);
   animateLetters();
   setupModal();
