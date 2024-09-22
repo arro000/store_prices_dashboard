@@ -399,10 +399,10 @@ function addProductToCategory(category) {
   const actionElement = document.getElementById("productAction");
   const categoryElement = document.getElementById("category");
   const productModalElement = document.getElementById("productModal");
+  updateCategorySelect();
 
   if (actionElement) actionElement.value = "add";
   if (categoryElement) {
-    updateCategorySelect();
     categoryElement.value = category;
   }
   if (productModalElement) productModalElement.style.display = "block";
@@ -491,6 +491,7 @@ function setupModal() {
   const productDetails = document.getElementById("productDetails");
   const categoryDetails = document.getElementById("categoryDetails");
   const categorySelect = document.getElementById("category");
+  updateCategorySelect();
 
   productBtn.onclick = () => {
     updateCategorySelect();
