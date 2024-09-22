@@ -301,8 +301,16 @@ function renderCategories(data) {
       deleteButton.onclick = () => deleteProduct(category, product.name);
 
       actionsContainer.appendChild(editButton);
-      actionsContainer.appendChild(deleteButton);
       row.appendChild(actionsContainer);
+
+      const empty = document.createElement("div");
+      empty.className = "grid-cell actions-container";
+      row.appendChild(empty);
+
+      const deleteContainer = document.createElement("div");
+      deleteContainer.className = "grid-cell actions-container";
+      deleteContainer.appendChild(deleteButton);
+      row.appendChild(deleteContainer);
 
       grid.appendChild(row);
     });
