@@ -141,7 +141,9 @@ function addProduct(category, product) {
 // Funzione per rimuovere un prodotto
 function removeProduct(category, productName) {
   if (shopData[category]) {
-    const index = shopData[category].products.findIndex(p => p.name === productName);
+    const index = shopData[category].products.findIndex(
+      (p) => p.name === productName
+    );
     if (index !== -1) {
       shopData[category].products.splice(index, 1);
       renderCategories(shopData);
@@ -156,7 +158,9 @@ function removeProduct(category, productName) {
 // Funzione per aggiornare le proprietà di un prodotto
 function updateProduct(category, productName, updatedProperties) {
   if (shopData[category]) {
-    const product = shopData[category].products.find(p => p.name === productName);
+    const product = shopData[category].products.find(
+      (p) => p.name === productName
+    );
     if (product) {
       Object.assign(product, updatedProperties);
       renderCategories(shopData);
@@ -243,30 +247,35 @@ function renderCategories(data) {
         } else {
           const priceSpan = document.createElement("span");
           priceSpan.className = "price";
+          cell.className = cell.className + " price-cell";
           priceSpan.textContent = product[key.toLowerCase()] || "-";
           cell.appendChild(priceSpan);
-
-          if (index === headers.length - 1) {
-            const actionsContainer = document.createElement("div");
-            actionsContainer.className = "actions-container";
-
-            const editButton = document.createElement("button");
-            editButton.textContent = "Modifica";
-            editButton.className = "edit-button";
-            editButton.onclick = () => editProduct(category, product.name);
-
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Elimina";
-            deleteButton.className = "delete-button";
-            deleteButton.onclick = () => deleteProduct(category, product.name);
-
-            actionsContainer.appendChild(editButton);
-            actionsContainer.appendChild(deleteButton);
-            cell.appendChild(actionsContainer);
-          }
         }
 
         row.appendChild(cell);
+        if (index === headers.length - 1 && index != 0) {
+          const actionsContainer = document.createElement("div");
+          actionsContainer.className = "grid-cell actions-container";
+
+          const editButton = document.createElement("button");
+          editButton.textContent = "Modifica";
+          editButton.className = "edit-button";
+          editButton.onclick = () => editProduct(category, product.name);
+
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Elimina";
+          deleteButton.className = "delete-button";
+          deleteButton.onclick = () => deleteProduct(category, product.name);
+
+          actionsContainer.appendChild(editButton);
+          actionsContainer.appendChild(deleteButton);
+          row.appendChild(actionsContainer);
+
+          const empty = document.createElement("div");
+          empty.className = "grid-cell ";
+          row.appendChild(empty);
+          row.appendChild(empty);
+        }
       });
 
       grid.appendChild(row);
@@ -278,7 +287,9 @@ function renderCategories(data) {
 }
 
 function editProduct(category, productName) {
-  const product = shopData[category].products.find(p => p.name === productName);
+  const product = shopData[category].products.find(
+    (p) => p.name === productName
+  );
   if (product) {
     document.getElementById("action").value = "update";
     document.getElementById("category").value = category;
@@ -293,7 +304,11 @@ function editProduct(category, productName) {
 }
 
 function deleteProduct(category, productName) {
-  if (confirm(`Sei sicuro di voler eliminare ${productName} dalla categoria ${category}?`)) {
+  if (
+    confirm(
+      `Sei sicuro di voler eliminare ${productName} dalla categoria ${category}?`
+    )
+  ) {
     removeProduct(category, productName);
   }
 }
@@ -355,22 +370,22 @@ function setupModal() {
   const action = document.getElementById("action");
   const productDetails = document.getElementById("productDetails");
 
-  btn.onclick = () => modal.style.display = "block";
-  span.onclick = () => modal.style.display = "none";
+  btn.onclick = () => (modal.style.display = "block");
+  span.onclick = () => (modal.style.display = "none");
   window.onclick = (event) => {
     if (event.target == modal) modal.style.display = "none";
-  }
+  };
 
   action.onchange = () => {
     productDetails.style.display = action.value === "remove" ? "none" : "flex";
-  }
+  };
 
   form.onsubmit = (e) => {
     e.preventDefault();
     const category = document.getElementById("category").value;
     const productName = document.getElementById("productName").value;
 
-    switch(action.value) {
+    switch (action.value) {
       case "add":
         addProduct(category, {
           name: productName,
@@ -378,7 +393,7 @@ function setupModal() {
           "2g": document.getElementById("price2g").value,
           "5g": document.getElementById("price5g").value,
           offerta: document.getElementById("offerta").checked,
-          new: document.getElementById("new").checked
+          new: document.getElementById("new").checked,
         });
         break;
       case "remove":
@@ -390,14 +405,14 @@ function setupModal() {
           "2g": document.getElementById("price2g").value,
           "5g": document.getElementById("price5g").value,
           offerta: document.getElementById("offerta").checked,
-          new: document.getElementById("new").checked
+          new: document.getElementById("new").checked,
         });
         break;
     }
 
     modal.style.display = "none";
     form.reset();
-  }
+  };
 }
 
 document.querySelectorAll(".category").forEach((el, index) => {
